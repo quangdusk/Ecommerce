@@ -48,6 +48,8 @@ class AppServiceProvider extends ServiceProvider
             'category_product' => CategoryProduct::class,
             'product' => Product::class,
             'user' => User::class,
+            'permission' => 'Spatie\Permission\Models\Permission',
+            'role' => 'Spatie\Permission\Models\Role',
         ]);
     }
 }

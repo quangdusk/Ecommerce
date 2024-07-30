@@ -59,7 +59,6 @@ const { filters, isLoading } = useFilters({
 </script>
 
 <template>
-
     <Head :title="title" />
 
     <BreezeAuthenticatedLayout>
@@ -71,19 +70,19 @@ const { filters, isLoading } = useFilters({
 
         <Container>
             <AddNew>
-                <Button v-if="can.create"
-                        :href="route(`admin.${routeResourceName}.create`)">Add New</Button>
+                <Button
+                    v-if="can.create"
+                    :href="route(`admin.${routeResourceName}.create`)"
+                    >Add New</Button
+                >
 
                 <template #filters>
                     <Filters v-model="filters" />
                 </template>
             </AddNew>
 
-            <Card class="mt-4"
-                  :is-loading="isLoading"
-                  no-padding>
-                <Table :headers="headers"
-                       :items="items">
+            <Card class="mt-4" :is-loading="isLoading" no-padding>
+                <Table :headers="headers" :items="items">
                     <template v-slot="{ item }">
                         <Td>
                             {{ item.name }}
@@ -92,10 +91,16 @@ const { filters, isLoading } = useFilters({
                             {{ item.created_at_formatted }}
                         </Td>
                         <Td>
-                            <Actions :edit-link="route(`admin.${routeResourceName}.edit`, {id: item.id})"
-                                     :show-edit="item.can.edit"
-                                     :show-delete="item.can.delete"
-                                     @deleteClicked="showDeleteModal(item)" />
+                            <Actions
+                                :edit-link="
+                                    route(`admin.${routeResourceName}.edit`, {
+                                        id: item.id,
+                                    })
+                                "
+                                :show-edit="item.can.edit"
+                                :show-delete="item.can.delete"
+                                @deleteClicked="showDeleteModal(item)"
+                            />
                         </Td>
                     </template>
                 </Table>
@@ -103,13 +108,11 @@ const { filters, isLoading } = useFilters({
         </Container>
     </BreezeAuthenticatedLayout>
 
-    <Modal v-model="deleteModal"
-           :title="`Delete ${itemToDelete.name}`">
+    <Modal v-model="deleteModal" :title="`Delete ${itemToDelete.name}`">
         Are you sure you want to delete this item?
 
         <template #footer>
-            <Button @click="handleDeleteItem"
-                    :disabled="isDeleting">
+            <Button @click="handleDeleteItem" :disabled="isDeleting">
                 <span v-if="isDeleting">Deleting</span>
                 <span v-else>Delete</span>
             </Button>
